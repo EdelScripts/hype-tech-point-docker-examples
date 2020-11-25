@@ -1,0 +1,8 @@
+authtoken: 7GY3oyAXkQQpjrGkzcdbW_4VxuaM2GKBztbdMJKQGEC
+tunnels:
+  jellyfin:
+    addr: jellyfin:8096
+    proto: http
+  qbittorrent:
+    addr: qbittorrent:8080
+    proto: http  

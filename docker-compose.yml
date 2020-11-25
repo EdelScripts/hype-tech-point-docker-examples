@@ -1,0 +1,34 @@
+version: '3.5'
+services:
+  qbittorrent:
+    image: linuxserver/qbittorrent
+    container_name: qbittorrent
+    environment:
+      WEBUI_PORT: '8080'
+    ports:
+      - 6881:6881
+      - 6881:6881/udp
+      - 127.0.0.1:8080:8080
+    volumes:
+      - ~/Downloads/torrents:/downloads  
+      -  torrent_config:/config
+
+  jellyfin:
+    image: linuxserver/jellyfin
+    volumes:
+      - ~/Downloads/torrents:/data/movies
+      -  jellyfin_config:/config
+    ports:
+      - 127.0.0.1:8096:8096  
+
+
+  ngrok:
+    image: alpine
+    volumes:
+      - ./ngrok:/app/ngrok
+      - ./ngrok.yml:/root/.ngrok2/ngrok.yml
+    command: /app/ngrok start jellyfin qbittorrent
+
+volumes:
+  torrent_config: null
+  jellyfin_config: null
